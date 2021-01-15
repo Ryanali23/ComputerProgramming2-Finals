@@ -5,6 +5,12 @@
  */
 package myApp;
 
+import Models.Student;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+
 /**
  *
  * @author RYAN
@@ -32,7 +38,7 @@ public class StudentCreateForm extends javax.swing.JFrame {
         jTextField2 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jComboBox1 = new javax.swing.JComboBox<>();
-        jDatePicker1 = new org.jdatepicker.JDatePicker();
+        dateChooserCombo1 = new datechooser.beans.DateChooserCombo();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -68,16 +74,17 @@ public class StudentCreateForm extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(103, 103, 103)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextField1)
-                            .addComponent(jTextField2)
-                            .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jComboBox2, 0, 229, Short.MAX_VALUE)
-                            .addComponent(jDatePicker1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(111, 111, 111)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(103, 103, 103)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(dateChooserCombo1, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jTextField1)
+                                .addComponent(jTextField2)
+                                .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jComboBox2, 0, 229, Short.MAX_VALUE)))))
                 .addContainerGap(637, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -92,8 +99,8 @@ public class StudentCreateForm extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jDatePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(41, 41, 41)
+                .addComponent(dateChooserCombo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(42, 42, 42)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 140, Short.MAX_VALUE))
         );
@@ -110,12 +117,26 @@ public class StudentCreateForm extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+
+        try{
         String enteredFirstName = jTextField1.getText();
-        String enteredSecondName = jTextField2.getText();
+        String enteredLastName = jTextField2.getText();
         String selectedGender = jComboBox1.getSelectedItem().toString();
         String selectedGrade = jComboBox2.getSelectedItem().toString();
-        String selectedYear = jDatePicker1.getModel().toString();
-        System.out.println(enteredFirstName + " " + enteredSecondName + " " + selectedGender + " " + selectedGrade + " " + selectedYear);
+        Date selectedYear =  dateChooserCombo1.getSelectedDate().getTime();
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/DD/YYYY");
+        String dateToBeStored = sdf.format(selectedYear);
+        if(!enteredFirstName.isEmpty() && !enteredLastName.isEmpty() &&
+         !selectedGender.isEmpty() && !selectedGrade.isEmpty() && !dateToBeStored.isEmpty()){
+           
+            Student student = new Student(enteredFirstName, enteredLastName, selectedGender, selectedGrade, dateToBeStored);
+            student.create();
+        }
+     
+        }
+        catch(Exception e){
+            
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -154,10 +175,10 @@ public class StudentCreateForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private datechooser.beans.DateChooserCombo dateChooserCombo1;
     private javax.swing.JButton jButton1;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
-    private org.jdatepicker.JDatePicker jDatePicker1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
