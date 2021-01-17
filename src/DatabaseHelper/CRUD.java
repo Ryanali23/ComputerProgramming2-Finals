@@ -1,9 +1,11 @@
 
 package DatabaseHelper;
 
+import java.sql.ResultSet;
+
 public interface CRUD {
     public void create();
-    public void read();
-    public void update();
-    public void delete();
+    public ResultSet read();
+    public void update(int id);
+    public void delete(int id);
 }

@@ -121,7 +121,7 @@ public class Login extends javax.swing.JFrame {
            while(resultSet.next()){
                String databaseUsername = resultSet.getString("username");
                String databasePassword = resultSet.getString("userPassword");
-         
+        
                if(databaseUsername.equals(enteredUsername) && databasePassword.equals(enteredPassword)){
                    isAuth = true;
                    break;

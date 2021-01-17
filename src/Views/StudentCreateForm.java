@@ -10,6 +10,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -74,6 +75,11 @@ public class StudentCreateForm extends javax.swing.JFrame {
 
         jComboBox1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Male", "Female" }));
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
 
         dateChooserCombo1.setFieldFont(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 18));
 
@@ -172,6 +178,10 @@ public class StudentCreateForm extends javax.swing.JFrame {
             Student student = new Student(enteredFirstName, enteredLastName, selectedGender, selectedGrade, dateToBeStored);
             student.create();
         }
+        else{
+            JOptionPane.showMessageDialog(null,"Empty Required Fields");
+        }
+     
      
         }
         catch(Exception e){
@@ -184,6 +194,10 @@ public class StudentCreateForm extends javax.swing.JFrame {
         Dashboard dashboard = new Dashboard();
         dashboard.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox1ActionPerformed
 
     /**
      * @param args the command line arguments
