@@ -19,7 +19,7 @@
 - [MySQL Connector ][0]
 
 ## Database Schema 
-The system has mostly used varchar() as data type  and int auto-increment for primary key . It has two tables that are for users and students. Since this is a simple project , I have not spent time normalizing the tables and there is actually nothing  to normalize. I want it to become as simple as possible. I spent my time more on the abstraction of system than normalizing.  Assuming you have already a database, The following schema is : 
+The system has mostly used varchar() as data type  and int auto-increment for primary key. It has two tables that are for users and students. Since this is a simple project , I have not spent time normalizing the tables and there is actually nothing  to normalize. I want it to become as simple as possible. I spent my time more on the abstraction of system than normalizing.  Assuming you have already a database, The following schema is : 
 ###### User table
 ```sql
 CREATE TABLE Users (

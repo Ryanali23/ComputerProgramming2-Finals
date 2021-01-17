@@ -2,6 +2,7 @@
 package Models;
 
 import DatabaseHelper.StudentDatabaseHelper;
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
@@ -21,9 +22,8 @@ public class Student extends StudentDatabaseHelper{
         this.gender = gender;
         this.grade = grade; 
         this.birthDay = birthDay;
-        
     }
-    
+   
     
     @Override
     public void create(){
