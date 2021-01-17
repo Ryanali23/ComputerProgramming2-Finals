@@ -4,9 +4,7 @@ package DatabaseHelper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import net.proteanit.sql.DbUtils;
+
 
 
 
@@ -82,19 +80,5 @@ public class StudentDatabaseHelper extends myDatabase implements CRUD{
         return null;
         
     }
-    public ResultSet readOne(int id){
-             String query = "SELECT * from students where studentId= '" + id + "'" ;
-        try{
-        
-            Statement statement = getConnection().createStatement();
-            ResultSet resultSet = statement.executeQuery(query);
-            
-            return resultSet;
-        }
-        catch(SQLException e){
-        }
-        return null;
-        
-    
-    }
+  
 }

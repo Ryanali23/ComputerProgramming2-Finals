@@ -5,7 +5,7 @@ public class User {
     String username; 
     String password;
     
-    public boolean Authenticate(){
+    public boolean isAuthenticate(){
     
         return false;
     }

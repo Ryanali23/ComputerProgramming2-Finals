@@ -13,8 +13,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 
@@ -25,9 +23,9 @@ import javax.swing.JOptionPane;
 public class UpdateStudentForm extends javax.swing.JFrame {
 
     Student student;
-    private int selectedID;
     private ArrayList<Student> studentList;
-    boolean isBusy = false; 
+    private int selectedIdToUpdate;
+    
     public UpdateStudentForm() {
         initComponents();
         
@@ -65,6 +63,7 @@ public class UpdateStudentForm extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jComboBox3 = new javax.swing.JComboBox<>();
         jComboBox4 = new javax.swing.JComboBox<>();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -124,6 +123,14 @@ public class UpdateStudentForm extends javax.swing.JFrame {
             }
         });
 
+        jButton2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jButton2.setText("Back");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -153,6 +160,10 @@ public class UpdateStudentForm extends javax.swing.JFrame {
                             .addComponent(jComboBox1, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jTextField2, javax.swing.GroupLayout.Alignment.TRAILING))))
                 .addContainerGap(138, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(21, 21, 21))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -177,7 +188,9 @@ public class UpdateStudentForm extends javax.swing.JFrame {
                 .addComponent(dateChooserCombo1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(101, 101, 101))
+                .addGap(44, 44, 44)
+                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26))
         );
 
         pack();
@@ -192,7 +205,7 @@ public class UpdateStudentForm extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        System.out.println(this.selectedID);
+
         try{
             String enteredFirstName = jTextField1.getText();
             String enteredLastName = jTextField2.getText();
@@ -203,9 +216,9 @@ public class UpdateStudentForm extends javax.swing.JFrame {
             String dateToBeStored = sdf.format(selectedYear);
             if(!enteredFirstName.isEmpty() && !enteredLastName.isEmpty() &&
                 !selectedGender.isEmpty() && !selectedGrade.isEmpty() && !dateToBeStored.isEmpty()){
-
-                student = new Student(enteredFirstName, enteredLastName, selectedGender, selectedGrade, dateToBeStored);
-             
+                
+                Student studentUpdate = new Student(enteredFirstName,enteredLastName,selectedGender,selectedGrade,dateToBeStored);
+                studentUpdate.update(this.selectedIdToUpdate);
                 JOptionPane.showMessageDialog(null,"Field Updated Successfully");
                 
                 this.setVisible(false);
@@ -216,7 +229,7 @@ public class UpdateStudentForm extends javax.swing.JFrame {
 
         }
         catch(Exception e){
-
+            System.out.println(e);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -230,9 +243,7 @@ public class UpdateStudentForm extends javax.swing.JFrame {
           if(jComboBox3.getItemCount() > 0){
           
               populateInputs();
-          }
-            
-         
+          } 
      
     }//GEN-LAST:event_jComboBox3ActionPerformed
 
@@ -251,11 +262,11 @@ public class UpdateStudentForm extends javax.swing.JFrame {
                 String gender = resultSet.getString("studentGender");
                 String studentGrade = resultSet.getString("studentGrade");
                 String date = resultSet.getString("Birthday");
-                studentList.add(new Student(firstName,lastName,gender, grade,date));
+                studentList.add(new Student(id,firstName,lastName,gender, grade,date));
                 jComboBox3.addItem(resultSet.getString("studentFirstName") + " " + resultSet.getString("studentLastName") + " | ID:" + id );
                 //populateInputs();
                 
-                
+               
         
         }}
         catch(SQLException e){
@@ -265,8 +276,16 @@ public class UpdateStudentForm extends javax.swing.JFrame {
          
     }//GEN-LAST:event_jComboBox4ActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        this.setVisible(false);
+        ViewStudents viewStudents = new ViewStudents();
+        viewStudents.setVisible(true);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     
     public void populateInputs(){
+        this.selectedIdToUpdate = studentList.get(jComboBox3.getSelectedIndex()).id;
+  
         try{
             jTextField1.setText(studentList.get(jComboBox3.getSelectedIndex()).firstName);
             jTextField2.setText(studentList.get(jComboBox3.getSelectedIndex()).lastName);
@@ -319,6 +338,7 @@ public class UpdateStudentForm extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private datechooser.beans.DateChooserCombo dateChooserCombo1;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JComboBox<String> jComboBox3;

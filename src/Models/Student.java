@@ -8,7 +8,7 @@ import javax.swing.JOptionPane;
 
 
 public class Student extends StudentDatabaseHelper{
-    public final int id;
+    public  final int id;
     public final String firstName;
     public  final String lastName;
     public  final String gender; 
@@ -39,7 +39,7 @@ public class Student extends StudentDatabaseHelper{
     }
      public Student(int id, String firstName,String lastName,String gender, String  grade, String birthDay){
         
-         this.id = 0; 
+         this.id = id; 
         this.firstName = firstName;
         this.lastName = lastName;
         this.gender = gender;
@@ -47,8 +47,6 @@ public class Student extends StudentDatabaseHelper{
         this.birthDay = birthDay;
         
     }
-    
-    
     
     @Override
     public void create(){
