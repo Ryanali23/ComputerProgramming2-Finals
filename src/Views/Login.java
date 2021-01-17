@@ -2,7 +2,9 @@
 package Views;
 
 import DatabaseHelper.myDatabase;
+import java.awt.HeadlessException;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
 
@@ -121,7 +123,7 @@ public class Login extends javax.swing.JFrame {
            while(resultSet.next()){
                String databaseUsername = resultSet.getString("username");
                String databasePassword = resultSet.getString("userPassword");
-         
+        
                if(databaseUsername.equals(enteredUsername) && databasePassword.equals(enteredPassword)){
                    isAuth = true;
                    break;
@@ -137,7 +139,7 @@ public class Login extends javax.swing.JFrame {
                JOptionPane.showMessageDialog(null,"Invalid Username or Password");
            }
        }
-       catch(Exception e){
+       catch(HeadlessException | SQLException e){
             System.out.println(e);
        }
        
