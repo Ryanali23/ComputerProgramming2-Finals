@@ -1,5 +1,5 @@
 # Simple Student Information System using Java Swing and MySQL (CRUD)
-## Computer Programming 2 : Final Project
+## Computer Programming 2 : GUI Final Project
 ### How to Run:
 1. Run `git clone https://github.com/Ryanali23/ComputerProgramming2-Finals.git`
 2. After cloning, Run your Netbeans 8.2 and open the project.
